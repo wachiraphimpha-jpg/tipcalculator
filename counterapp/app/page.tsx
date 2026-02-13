@@ -26,9 +26,10 @@ function TipSelector({ tipRate, onSelectTip }) {
         <button
           onClick={onSelectTip}
           className={`text-xl p-4 w-full h-16 transition-colors font-bold ${
+            // ถ้าเลือก 5% (ให้ Tip) จะเป็นสีเหลือง ถ้าไม่เลือกจะเป็นสีฟ้า
             tipRate === 0.05
-              ? "bg-sky-400 text-black"
-              : "bg-sky-200 hover:bg-sky-300 text-black"
+              ? "bg-yellow-400 text-black"
+              : "bg-sky-400 text-black"
           }`}
         >
           5%
@@ -68,13 +69,18 @@ function CalculateButton({ onCalculate }) {
 }
 
 export default function Home() {
-  const [bill, setBill] = useState(100);
+  const [bill, setBill] = useState(1000);
   const [tipRate, setTipRate] = useState(0);
   const [tipTotal, setTipTotal] = useState(0);
   const [billTotal, setBillTotal] = useState(0);
 
+  // แก้ไขส่วนนี้เพื่อให้สลับค่าไปมาได้ (Toggle)
   const handleSelectTip = () => {
-    setTipRate(0.05);
+    if (tipRate === 0.05) {
+      setTipRate(0); // กลับเป็นไม่ให้ Tip (สีฟ้า)
+    } else {
+      setTipRate(0.05); // ให้ Tip (สีเหลือง)
+    }
   };
 
   const calculate = () => {
